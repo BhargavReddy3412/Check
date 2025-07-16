@@ -30,6 +30,35 @@ app.use(bodyParser.urlencoded({ extended: true }));
 });
 
 
+app.get('/d', async (req, res) => {
+  const ip =
+    req.headers['x-forwarded-for']?.split(',')[0] ||
+    req.socket?.remoteAddress ||
+    'IP not available';
+
+  try {
+    // Lookup location using ip-api.com
+    const response = await axios.get(`http://ip-api.com/json/${ip}`);
+    const { city, country, regionName, query } = response.data;
+
+    res.json({
+      ip: query,
+      city,
+      region: regionName,
+      country
+    });
+
+  } catch (err) {
+    console.error('Location lookup failed:', err.message);
+    res.json({
+      ip,
+      city: 'Unknown',
+      region: 'Unknown',
+      country: 'Unknown'
+    });
+  }
+});
+
 app.post('/send-email', (req, res) => {
   const { firstName, phone, email, company, additionalInfo } = req.body;
 
