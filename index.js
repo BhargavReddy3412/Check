@@ -20,6 +20,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //   },
 // });
 
+app.get('/',(req,res)=>{
+const ipAddress =
+    req.headers['x-forwarded-for']?.split(',')[0] ||
+    req.socket?.remoteAddress ||
+    'IP not available';
+
+    res.send(ipAddress);
+}
+
 app.post('/send-email', (req, res) => {
   const { firstName, phone, email, company, additionalInfo } = req.body;
 
