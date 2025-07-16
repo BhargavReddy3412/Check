@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //   },
 // });
 
-app.get('/',(req,res)=>{
+app.get('/',(req,res))=>{
 const ipAddress =
     req.headers['x-forwarded-for']?.split(',')[0] ||
     req.socket?.remoteAddress ||
@@ -40,7 +40,7 @@ app.post('/send-email', (req, res) => {
 
 
   console.log( firstName, phone, email, company, additionalInfo,ipAddress)
-  res.end( firstName, phone, email, company, additionalInfo,ipAddress);
+  res.Send( firstName, phone, email, company, additionalInfo,ipAddress);
   const mailOptions = {
     from: email,
     to: 'info@expodite.in',
