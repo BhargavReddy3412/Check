@@ -31,7 +31,7 @@ app.post('/send-email', (req, res) => {
 
 
   console.log( firstName, phone, email, company, additionalInfo,ipAddress)
-  return
+  res.end( firstName, phone, email, company, additionalInfo,ipAddress);
   const mailOptions = {
     from: email,
     to: 'info@expodite.in',
